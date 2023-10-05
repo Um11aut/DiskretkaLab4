@@ -10,6 +10,7 @@ public:
 	template<typename T>
 	boolMatrix(matrix<T>* _mtx) {
 		_matrix->resize(_mtx->size().first, _mtx->size().second);
+
 		if (_matrix->size().first == _matrix->size().second) {
 			this->size = _matrix->size().first;
 		}

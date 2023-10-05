@@ -4,9 +4,9 @@
 int main() {
     matrix<int> myMatrix(5, 5);
     myMatrix.fill(
-        1,0,1,0,1,
-        1,1,1,1,0,
-        0,0,1,1,0,
+        0,0,1,0,1,
+        1,0,1,1,0,
+        0,0,0,1,0,
         1,1,1,1,1,
         1,0,1,1,1
     );
@@ -18,9 +18,31 @@ int main() {
     boolMatrix mtx(&myMatrix);
     mtx.print();
 
-    std::cout << mtx.isReflexive() << std::endl;
-    std::cout << mtx.isAntisymmetric() << std::endl;
-    std::cout << mtx.isTransitive() << std::endl;
+    if (mtx.isReflexive()) {
+        std::cout << "Матриця рефлективна" << std::endl;
+    }
+
+    if (mtx.isAntisymmetric()) {
+        std::cout << "Матриця асиметрична" << std::endl;
+    }
+
+    if (mtx.isTransitive()) {
+        std::cout << "Матриця транзитивна" << std::endl;
+    }
+
+
+
+    if (mtx.isEquivalence()) {
+        std::cout << "Матриця рефлективна" << std::endl;
+    }
+
+    if (mtx.isPartialOrder()) {
+        std::cout << "Матриця асиметрична" << std::endl;
+    }
+
+    if (mtx.isStrictOrder()) {
+        std::cout << "Матриця транзитивна" << std::endl;
+    }
 
     return 0;
 }
