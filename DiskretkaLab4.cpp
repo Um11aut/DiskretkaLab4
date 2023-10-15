@@ -11,8 +11,6 @@ int main() {
         1,0,1,1,1
     );
 
-    myMatrix.print();
-
     std::cout << std::endl;
 
     boolMatrix mtx(&myMatrix);
@@ -33,16 +31,20 @@ int main() {
 
 
     if (mtx.isEquivalence()) {
-        std::cout << "Матриця рефлективна" << std::endl;
+        std::cout << "Матриця еквівалентна" << std::endl;
     }
 
     if (mtx.isPartialOrder()) {
-        std::cout << "Матриця асиметрична" << std::endl;
+        std::cout << "Матриця часткового порядку" << std::endl;
     }
 
     if (mtx.isStrictOrder()) {
-        std::cout << "Матриця транзитивна" << std::endl;
+        std::cout << "Матриця строго порядку" << std::endl;
     }
+
+    auto power2 = mtx ^ 2;
+
+    power2.print();
 
     return 0;
 }

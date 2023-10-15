@@ -22,6 +22,32 @@ public:
 		}
 	}
 
+	boolMatrix(boolMatrix&& other) noexcept {
+		_matrix = std::move(other._matrix);
+		size = other.size;
+		other.size = 0;
+	}
+
+	boolMatrix operator^(const int power) const {
+		boolMatrix result(_matrix.get());
+
+		for (int p = 1; p < power; ++p) {
+			boolMatrix temp(result._matrix.get()); // Зробимо копію поточного результату
+
+			for (int i = 0; i < _matrix->size().first; ++i) {
+				for (int j = 0; j < _matrix->size().second; ++j) {
+					bool value = false;
+					for (int k = 0; k < _matrix->size().second; ++k) {
+						value = value || ((*_matrix)[i][k] && (*temp._matrix)[k][j]);
+					}
+					(*result._matrix)[i][j] = value;
+				}
+			}
+		}
+
+		return result;
+	}
+
 	void print() {
 		for (int i = 0; i < _matrix->size().first; i++) {
 			for (int j = 0; j < _matrix->size().second; j++) {

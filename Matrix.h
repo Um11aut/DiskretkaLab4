@@ -13,9 +13,6 @@ private:
 
 public:
     matrix(int n, int m) {
-        this->rows = n;
-        this->cols = m;
-
         resize(n, m);
     }
 
@@ -24,6 +21,7 @@ public:
     template<typename MoveType>
     matrix(matrix<MoveType>&& other) {
         this->_matrix = std::move(other._matrix);
+        
         this->rows = other.rows;
         this->cols = other.cols;
     }
@@ -39,6 +37,7 @@ public:
 
     void resize(int n, int m) {
         _matrix->resize(n, std::vector<Type>(m));
+
         this->rows = n;
         this->cols = m;
     }
