@@ -42,6 +42,12 @@ int main() {
         std::cout << "Матриця строго порядку" << std::endl;
     }
 
+    mtx.makeTransitive();
+
+    mtx.print();
+    std::cout << std::endl;
+
+
     auto power2 = mtx ^ 2;
 
     power2.print();

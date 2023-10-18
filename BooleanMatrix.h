@@ -1,10 +1,9 @@
-#pragma once
 #include "Matrix.h"
 
 class boolMatrix {
 private:
 	std::unique_ptr<matrix<bool>> _matrix = std::make_unique<matrix<bool>>();
-	int size;
+	size_t size;
 
 public:
 	template<typename T>
@@ -32,12 +31,12 @@ public:
 		boolMatrix result(_matrix.get());
 
 		for (int p = 1; p < power; ++p) {
-			boolMatrix temp(result._matrix.get()); // Зробимо копію поточного результату
+			boolMatrix temp(result._matrix.get());
 
-			for (int i = 0; i < _matrix->size().first; ++i) {
-				for (int j = 0; j < _matrix->size().second; ++j) {
-					bool value = false;
-					for (int k = 0; k < _matrix->size().second; ++k) {
+			for (int i = 0; i < size; ++i) {
+				for (int j = 0; j < size; ++j) {
+					bool value = true;
+					for (int k = 0; k < size; ++k) {
 						value = value || ((*_matrix)[i][k] && (*temp._matrix)[k][j]);
 					}
 					(*result._matrix)[i][j] = value;
@@ -46,6 +45,36 @@ public:
 		}
 
 		return result;
+	}
+
+	void makeReflexive() {
+		for (int i = 0; i < size; i++) {
+			if (!(*_matrix)[i][i]) {
+				(*_matrix)[i][i] = 1;
+			}
+		}
+	}
+
+	void makeSymmetric() {
+		for (int i = 0; i < size; ++i) {
+			for (int j = 0; j < size; ++j) {
+				if ((*_matrix)[i][j] != (*_matrix)[j][i]) {
+					(*_matrix)[i][j] = (*_matrix)[j][i];
+				}
+			}
+		}
+	}
+
+	void makeTransitive() {
+		for (int i = 0; i < size; ++i) {
+			for (int j = 0; j < size; ++j) {
+				for (int k = 0; k < size; ++k) {
+					if ((*_matrix)[i][j] && (*_matrix)[j][k] && !(*_matrix)[i][k]) {
+						(*_matrix)[i][k] = true;
+					}
+				}
+			}
+		}
 	}
 
 	void print() {
