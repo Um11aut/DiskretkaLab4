@@ -29,10 +29,8 @@ public:
 	}
 
 	boolMatrix(const boolMatrix& other) {
-		// Copy the size
 		this->size = other.size;
 
-		// Create a new matrix and copy the content from the source matrix
 		_matrix = std::make_unique<matrix<bool>>();
 		_matrix->resize(other._matrix->size().first, other._matrix->size().second);
 
