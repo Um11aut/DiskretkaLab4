@@ -2,12 +2,13 @@
 
 class boolMatrix {
 private:
-	std::unique_ptr<matrix<bool>> _matrix = std::make_unique<matrix<bool>>();
+	std::unique_ptr<matrix<bool>> _matrix;
 	size_t size;
 
 public:
 	template<typename T>
 	boolMatrix(matrix<T>* _mtx) {
+		_matrix = std::make_unique<matrix<bool>>();
 		_matrix->resize(_mtx->size().first, _mtx->size().second);
 
 		if (_matrix->size().first == _matrix->size().second) {
@@ -25,6 +26,21 @@ public:
 		_matrix = std::move(other._matrix);
 		size = other.size;
 		other.size = 0;
+	}
+
+	boolMatrix(const boolMatrix& other) {
+		// Copy the size
+		this->size = other.size;
+
+		// Create a new matrix and copy the content from the source matrix
+		_matrix = std::make_unique<matrix<bool>>();
+		_matrix->resize(other._matrix->size().first, other._matrix->size().second);
+
+		for (int i = 0; i < other._matrix->size().first; i++) {
+			for (int j = 0; j < other._matrix->size().second; j++) {
+				(*_matrix)[i][j] = (*other._matrix)[i][j];
+			}
+		}
 	}
 
 	boolMatrix operator^(const int power) const {
@@ -104,7 +120,6 @@ public:
 	}
 
 	bool isReflexive() const {
-		std::cout << std::endl;
 		for (int i = 0; i < size; i++) {
 			if (!(*_matrix)[i][i]) {
 				return false;
